@@ -1,0 +1,7 @@
+Education/
+cmake-build-debug/
+.vscode/
+.idea/
+
+CMakeLists.txt
+*.exe
