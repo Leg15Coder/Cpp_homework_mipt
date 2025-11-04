@@ -9,11 +9,11 @@ int main() {
     std::cin >> a >> b >> c;
 
     if (std::abs(a) < epsilon) {
-        if (std::abs(b) < 0) {
+        if (std::abs(b) < epsilon) {
             if (std::abs(c) < epsilon) {
-                std::cout << "Уравнение имеет бесконечно много решений (вся вещественная ось).";
+                std::cout << "Infinity solutions.";
             } else {
-                std::cout << "Уравнение не имеет решений.";
+                std::cout << "No solution.";
             }
         } else {
             std::cout << (c / b);
@@ -23,13 +23,13 @@ int main() {
 
         if (std::abs(D) < epsilon) {
             double x = -b / 2 / a;
-            std::cout << "Уравнение имеет единственное решение x=" << x << ".";
+            std::cout << "Only one solution x=" << x << ".";
         } else if (D < 0) {
-            std::cout << "Уравнение не имеет решений.";
+            std::cout << "No solution.";
         } else {
             double x1 = (-b - D) / 2 / a;
             double x2 = (-b + D) / 2 / a;
-            std::cout << x1 << " & " << x2;
+            std::cout << "Two solutions: " << x1 << " & " << x2;
         }
     }
 
