@@ -23,9 +23,7 @@ public:
 
 
 class Adapter_v1 : public Entity_v1 {
-public:
-    virtual ~Adapter_v1() = default;
-    
+public:    
     void test() override {
         test_v1();
     }
@@ -37,9 +35,7 @@ public:
 
 
 class Adapter_v2 : public Entity_v2 {
-public:
-    virtual ~Adapter_v2() = default;
-    
+public:    
     void test() override {
         test_v2();
     }

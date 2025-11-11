@@ -66,7 +66,7 @@ constexpr double average(Args... args) {
 
 
 int main() {
-    double result;
+    double result = 0.0;
     
     result = max(1.5, 2, 3.7, 4.0f, 5.2, "string", 'a');
     std::cout << "Max: " << result << std::endl;

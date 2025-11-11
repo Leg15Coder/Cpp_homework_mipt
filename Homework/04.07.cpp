@@ -127,7 +127,7 @@ template < typename R1, typename R2 > using div = typename Div < R1, R2 > ::type
 template < typename T, typename R = Ratio < 1 > > struct Duration 
 {
 	T x = T();
-    using ratio = R;
+    // using ratio = R;
 };
 
 

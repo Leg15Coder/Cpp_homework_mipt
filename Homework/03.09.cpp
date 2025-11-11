@@ -1,8 +1,7 @@
 #include <iostream>
 #include <array>
 #include <cstdint>
-#include <sstream>
-#include <stdexcept>
+
 
 class IPv4 {
 public:
@@ -169,12 +168,11 @@ int main() {
     }
 
     // Тестирование граничных случаев
-    std::cout << "\nTesting edge cases:" << std::endl;
     IPv4 ip9(255, 255, 255, 255);
     std::cout << "Max IP: " << ip9 << std::endl;
-    std::cout << "After ++: " << ++ip9 << " (should wrap around)" << std::endl;
+    std::cout << "After ++: " << ++ip9 << std::endl;
 
     IPv4 ip10(0, 0, 0, 0);
     std::cout << "Min IP: " << ip10 << std::endl;
-    std::cout << "After --: " << --ip10 << " (should wrap around)" << std::endl;
+    std::cout << "After --: " << --ip10 << std::endl;
 }
