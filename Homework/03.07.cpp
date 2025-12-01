@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <utility>
 #include <stdexcept>
+#include <cassert>
 
 
 class Vector
@@ -114,15 +115,37 @@ int main()
 {
 	Vector vector_1;
 
+    assert(vector_1.empty());
+    assert(vector_1.size() == 0);
+    assert(vector_1.capacity() == 0);
+
 	Vector vector_2 = { 1, 2, 3, 4, 5 };
 
+    assert(!vector_2.empty());
+    assert(vector_2.size() == 5);
+    assert(vector_2.capacity() >= 5);
+
 	Vector vector_3 = vector_2;
+
+    assert(vector_3.size() == 5);
+    assert(vector_3.capacity() >= 5);
 
 	Vector vector_4 = std::move(vector_3);
 
 	vector_3 = vector_2;
 
+    assert(vector_3.size() == 5);
+    assert(vector_3.capacity() >= 5);
+
 	vector_4 = std::move(vector_3);
 
 	swap(vector_1, vector_2);
+
+    Vector vector_5;
+
+    vector_5.push_back(52);
+    assert(vector_5.size() == 1);
+    int x = vector_5.pop_back();
+    assert(x == 52);
+    assert(vector_5.empty());
 }
