@@ -12,9 +12,17 @@ public:
     virtual double perimeter() const = 0;
 };
 
-class Triangle : public Shape {
+class Polygon : public Shape {
 public:
-    Triangle(double a, double b, double c) : a(a), b(b), c(c) {}
+    virtual ~Polygon() = default;
+};
+
+class Triangle : public Polygon {
+public:
+    Triangle(double a, double b, double c) : a(a), b(b), c(c) {
+        assert(a > 0 && b > 0 && c > 0);
+        assert(a + b > c && a + c > b && b + c > a);
+    }
 
     double area() const override final {
         double p = perimeter() / 2;
@@ -31,31 +39,41 @@ private:
     double c = 0;
 };
 
-class Square final : public Shape {
+class Rectangle : public Polygon {
 public:
-    Square(double a) : a(a) {}
+    Rectangle(double a, double b) : a(a), b(b) {
+        assert(a > 0 && b > 0);
+    }
 
     double area() const override {
-        return a * a;
+        return a * b;
     }
 
     double perimeter() const override {
-        return 4 * a;
+        return 2 * (a + b);
     }
 
 private:
     double a = 0;
+    double b = 0;
+};
+
+class Square final : public Rectangle {
+public:
+    Square(double a) : Rectangle(a, a) {}
 };
 
 class Circle final : public Shape {
 public:
-    Circle(double r) : r(r) {}
+    Circle(double r) : r(r) {
+        assert(r > 0);
+    }
 
-    double area() const override {
+    double area() const override final {
         return r * r * std::numbers::pi;
     }
 
-    double perimeter() const override {
+    double perimeter() const override final {
         return 2 * std::numbers::pi * r;
     }
 

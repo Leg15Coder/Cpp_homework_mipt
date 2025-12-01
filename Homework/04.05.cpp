@@ -5,9 +5,13 @@
 template<int N>
 struct Fibonacci {
     static_assert(N >= 0);
-    static_assert(Fibonacci<N - 1>::value <= std::numeric_limits<int>::max() / 2);
     
-    static constexpr int value = Fibonacci<N - 1>::value + Fibonacci<N - 2>::value;
+    static constexpr int prev = Fibonacci<N - 1>::value;
+    static constexpr int before_prev = Fibonacci<N - 2>::value;
+
+    static_assert(prev <= std::numeric_limits<int>::max() - before_prev);
+    
+    static constexpr int value = prev + before_prev;
 };
 
 

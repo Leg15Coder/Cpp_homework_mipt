@@ -80,5 +80,5 @@ int main()
 	sort(vector1);
 
 	assert(std::ranges::is_sorted(vector));
-	assert(std::ranges::is_sorted(vector));
+	assert(std::ranges::is_sorted(vector1));
 }

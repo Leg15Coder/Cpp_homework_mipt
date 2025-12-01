@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <cstdint>
+#include <sstream>
 
 
 class IPv4 {
@@ -84,8 +85,21 @@ public:
     friend std::istream& operator>>(std::istream& is, IPv4& ip) {
         int a, b, c, d;
         char dot1, dot2, dot3;
+        std::string s;
+
+        if (!(is >> s)) {
+            return is;
+        }
+
+        std::stringstream string_stream(s);
         
-        is >> a >> dot1 >> b >> dot2 >> c >> dot3 >> d;
+        if (!(string_stream >> a >> dot1 >> b >> dot2 >> c >> dot3 >> d)) {
+            return is;
+        }
+
+        if (string_stream.peek() != std::char_traits<char>::eof()) {
+            return is;
+        }
         
         if (dot1 != '.' || dot2 != '.' || dot3 != '.') {
             return is;
@@ -93,12 +107,13 @@ public:
         
         if (a < 0 || a > 255 || b < 0 || b > 255 || 
             c < 0 || c > 255 || d < 0 || d > 255) {
-            
-            ip.data[0] = static_cast<std::uint8_t>(a);
-            ip.data[1] = static_cast<std::uint8_t>(b);
-            ip.data[2] = static_cast<std::uint8_t>(c);
-            ip.data[3] = static_cast<std::uint8_t>(d);
+            return is;
         }
+            
+        ip.data[0] = static_cast<std::uint8_t>(a);
+        ip.data[1] = static_cast<std::uint8_t>(b);
+        ip.data[2] = static_cast<std::uint8_t>(c);
+        ip.data[3] = static_cast<std::uint8_t>(d);
         
         return is;
     }

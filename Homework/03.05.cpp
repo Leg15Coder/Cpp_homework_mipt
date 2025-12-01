@@ -24,25 +24,21 @@ public:
 
 class Adapter_v1 : public Entity_v1 {
 public:    
-    void test() override {
+    void test() override final {
         test_v1();
     }
     
-    virtual void test_v1() {
-        std::cout << "Adapter_v1::test_v1()" << std::endl;
-    }
+    virtual void test_v1() = 0;
 };
 
 
 class Adapter_v2 : public Entity_v2 {
 public:    
-    void test() override {
+    void test() override final {
         test_v2();
     }
     
-    virtual void test_v2() {
-        std::cout << "Adapter_v2::test_v2()" << std::endl;
-    }
+    virtual void test_v2() = 0;
 };
 
 
