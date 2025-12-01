@@ -1,10 +1,10 @@
 module rational;
 
-import <cassert>
-import <cmath>
-import <istream>
-import <numeric>
-import <ostream>
+import <cassert>;
+import <cmath>;
+import <istream>;
+import <numeric>;
+import <ostream>;
 
 namespace numbers {
 
@@ -75,7 +75,7 @@ std::strong_ordering operator<=>(Rational const& lhs, Rational const& rhs)
 
 bool operator==(Rational const & lhs, Rational const & rhs)
 {
-    return !(lhs < rhs) && !(rhs < lhs);
+    return (lhs <=> rhs) == std::strong_ordering::equal;
 }
 
 std::istream & operator>>(std::istream & stream, Rational & rational)

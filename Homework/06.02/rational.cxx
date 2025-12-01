@@ -1,7 +1,7 @@
 export module rational;
 
-import <compare>
-import <iosfwd>
+import <compare>;
+import <iosfwd>;
 
 
 export namespace numbers {
