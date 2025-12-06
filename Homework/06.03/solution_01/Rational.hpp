@@ -1,9 +1,14 @@
-export module rational;
+#ifndef RATIONAL
 
-import <compare>;
-import <iostream>;
+#define RATIONAL
 
-export namespace numbers {
+#pragma once
+
+#include <compare>
+#include <iosfwd>
+
+
+// int global_counter = 0;  multiple definition
 
 class Rational {
 public:
@@ -41,4 +46,4 @@ private:
     int m_den = 1;
 };
 
-}
+#endif

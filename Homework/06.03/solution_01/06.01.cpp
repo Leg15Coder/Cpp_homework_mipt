@@ -1,12 +1,12 @@
-import rational;
+#include "Rational.hpp"
 
-import <cassert>;
-import <cmath>;
-import <sstream>;
-import <vector>;
-
-
-using numbers::Rational;
+#include <cassert>
+#include <cmath>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <numeric>
 
 
 bool equal(double x, double y, double eps = 1e-6) {
@@ -78,4 +78,6 @@ int main()
 	stream_2 << x;
 
 	assert(stream_2.str() == stream_1.str());
+
+    // x.reverse();   нет определения функции/метода
 }

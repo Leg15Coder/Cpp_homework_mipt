@@ -1,16 +1,23 @@
-module rational;
+#include "Rational.hpp"
 
-import <cassert>;
-import <cmath>;
-import <iostream>;
-import <numeric>;
+#include <cassert>
+#include <cmath>
+#include <istream>
+#include <numeric>
+#include <ostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
-namespace numbers {
 
 Rational::Rational(int num, int den) : m_num(num), m_den(den) {
     assert(den != 0);
     reduce();
 }
+
+/*  One Definition Rule
+Rational::Rational(double num, int den) : m_num(num), m_den(den) {}
+*/
 
 Rational::operator double() const
 { 
@@ -101,6 +108,4 @@ void Rational::reduce()
     m_num /= gcd;
 
     m_den /= gcd;
-}
-
 }

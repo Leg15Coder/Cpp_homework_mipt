@@ -4,6 +4,9 @@ import <cassert>;
 import <cmath>;
 import <sstream>;
 import <vector>;
+import <string>;
+import <algorithm>;
+import <numeric>;
 
 
 using numbers::Rational;
