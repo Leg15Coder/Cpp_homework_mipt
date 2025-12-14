@@ -3,6 +3,6 @@ cmake-build-debug/
 .vscode/
 .idea/
 
-CMakeLists.txt
+build/
 *.exe
 *.out
