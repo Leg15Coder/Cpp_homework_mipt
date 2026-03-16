@@ -6,3 +6,7 @@ cmake-build-debug/
 build/
 *.exe
 *.out
+
+benchmark/
+boost_*/
+
