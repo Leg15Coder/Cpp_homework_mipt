@@ -1,3 +1,4 @@
+#include <benchmark/benchmark.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,9 +7,9 @@
 #include <string_view>
 #include <limits>
 
-constexpr std::string_view TARGET_PHRASE = "methinksitslikeaweasel";
+constexpr std::string_view TARGET_PHRASE = "methinksitislikeaweasel";
 constexpr std::string_view ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-constexpr size_t PHRASE_LENGTH = 22;
+constexpr size_t PHRASE_LENGTH = 23;
 constexpr int COPIES_COUNT = 100;
 constexpr double MUTATION_RATE = 0.05;
 
@@ -31,24 +32,35 @@ std::string generate_random_string(size_t length, std::default_random_engine& rn
     return random_string;
 }
 
-int main() {
+static void BM_CalculateFitness(benchmark::State& state) {
     std::random_device rd;
     std::default_random_engine rng(rd());
+    std::uniform_int_distribution<> char_dist(0, ALPHABET.length() - 1);
+    std::string test_string = generate_random_string(PHRASE_LENGTH, rng, char_dist);
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(calculate_fitness(test_string));
+    }
+}
+BENCHMARK(BM_CalculateFitness);
 
+static void BM_GenerateRandomString(benchmark::State& state) {
+    std::random_device rd;
+    std::default_random_engine rng(rd());
+    std::uniform_int_distribution<> char_dist(0, ALPHABET.length() - 1);
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(generate_random_string(PHRASE_LENGTH, rng, char_dist));
+    }
+}
+BENCHMARK(BM_GenerateRandomString);
+
+static void BM_GeneticAlgorithmStep(benchmark::State& state) {
+    std::random_device rd;
+    std::default_random_engine rng(rd());
     std::uniform_real_distribution<> mutation_dist(0.0, 1.0);
     std::uniform_int_distribution<> char_dist(0, ALPHABET.length() - 1);
-
     std::string parent_string = generate_random_string(PHRASE_LENGTH, rng, char_dist);
-    int generation = 0;
 
-    while (true) {
-        size_t parent_fitness = calculate_fitness(parent_string);
-        std::cout << "Gen " << generation << ", Best fitness " << parent_fitness << ": " << parent_string << std::endl;
-
-        if (parent_fitness == 0) {
-            break;
-        }
-
+    for (auto _ : state) {
         std::vector<std::string> children;
         children.reserve(COPIES_COUNT);
 
@@ -62,15 +74,15 @@ int main() {
             children.push_back(child);
         }
 
-        auto best_child_it = std::min_element(children.cbegin(), children.cend(), 
+        auto best_child_it = std::min_element(children.cbegin(), children.cend(),
             [](const std::string& a, const std::string& b) {
                 return calculate_fitness(a) < calculate_fitness(b);
             });
-        
-        parent_string = *best_child_it;
-        
-        generation++;
-    }
 
-    std::cout << "Target reached: " << TARGET_PHRASE << std::endl;
+        parent_string = *best_child_it;
+        benchmark::DoNotOptimize(parent_string);
+    }
 }
+BENCHMARK(BM_GeneticAlgorithmStep);
+
+BENCHMARK_MAIN();

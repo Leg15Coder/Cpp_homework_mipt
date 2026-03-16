@@ -5,15 +5,22 @@
 #include <stdexcept>
 #include <thread>
 #include <string>
+#include <cmath>
+#include <cassert>
+#include <iomanip>
+
 
 template <typename D = std::chrono::duration<double>>
 class Timer {
 public:
-    Timer(std::string const & scope) : m_scope(scope), m_begin(clock_t::now()), running(false) {}
+    Timer(std::string const & scope) : m_scope(scope), running(false) {}
 
     ~Timer()
 	{
-		std::print("{} : {:.6f}\n", m_scope, elapsed().count());
+        if (running) {
+            stop();
+        }
+		std::cout << m_scope << " : " << std::fixed << std::setprecision(6) << average() << "\n";
 	}
 
     auto elapsed() const
