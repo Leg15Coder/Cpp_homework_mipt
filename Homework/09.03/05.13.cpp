@@ -1,4 +1,4 @@
-#include <print>
+#include <iostream>
 #include <vector>
 #include <memory>
 
@@ -63,7 +63,7 @@ public :
 
     void test(int x) const override
     {
-        std::print("Client::test : x = {}\n", x);
+        std::cout << "Client::test : x = " << x << "\n";
     }
 };
 
@@ -75,7 +75,7 @@ public :
 
     void test(int x) const override
     {
-        std::print("Server::test : x = {}\n", x);
+        std::cout << "Server::test : x = " << x << "\n";
     }
 };
 

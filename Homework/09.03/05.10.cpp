@@ -1,5 +1,5 @@
 #include <memory>
-#include <print>
+#include <iostream>
 
 ////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ class Client : public Entity
 public :
     void test() const override 
     { 
-        std::print("Client::test\n");
+        std::cout << "Client::test\n";
     } 
 };
 
@@ -33,7 +33,7 @@ public :
 
     void test() const override 
     { 
-        std::print("Server::test\n");
+        std::cout << "Server::test\n";
     }   
 };
 
@@ -49,9 +49,9 @@ public :
 
     void test() const override
     { 
-        std::print("Decorator::test : ");
+        std::cout << "Decorator::test : ";
         
-        m_entity.test();
+        m_entity->test();
     }
 
 private :
